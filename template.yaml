@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Lambda example with Fixie static IP proxy
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+
+Resources:
+  IpCheckFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: src/index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          FIXIE_URL: !Ref FixieUrl
+      Events:
+        IpCheckApi:
+          Type: Api
+          Properties:
+            Path: /ip
+            Method: get
+
+Parameters:
+  FixieUrl:
+    Type: String
+    Description: "Your Fixie proxy URL (format: http://fixie:token@subdomain.usefixie.com:80)"
+    Default: "http://fixie:your-token@your-subdomain.usefixie.com:80"
+
+Outputs:
+  IpCheckFunction:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt IpCheckFunction.Arn
+  IpCheckFunctionIamRole:
+    Description: "IAM Role created for Lambda function"
+    Value: !GetAtt IpCheckFunctionRole.Arn
+  IpCheckApiEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ip/"

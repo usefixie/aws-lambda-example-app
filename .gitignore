@@ -1,0 +1,22 @@
+# Environment variables
+.env
+env.json
+
+# Dependencies
+node_modules/
+src/node_modules/
+package-lock.json
+src/package-lock.json
+
+# AWS SAM
+.aws-sam/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Local
+.tool-versions

@@ -1,0 +1,21 @@
+{
+  "name": "aws-lambda-example",
+  "version": "1.0.0",
+  "description": "AWS Lambda example with Fixie static IP proxy",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "fixie",
+    "proxy",
+    "static-ip"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.2"
+  }
+}
